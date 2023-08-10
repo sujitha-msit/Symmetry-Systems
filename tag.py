@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 response = requests.get('https://docs.aws.amazon.com/service-authorization/latest/reference/reference_policies_actions-resources-contextkeys.html')
 soup = BeautifulSoup(response.content, "html.parser")
 #To get the text out of it
-
+final_data = []
 div_highlight =  soup.find_all(name = 'div',class_ = "highlights",recursive=True)
 urls= []
 for li in div_highlight:
@@ -62,8 +62,9 @@ for url in urls:
     finalMap["actions"] =data[1:]
     print(finalMap)
     print("---------------------"*3)
+    final_data.append(finalMap)
 with open("output.json", "w") as outfile:
-    json.dump(finalMap, outfile)
+    json.dump(final_data, outfile)
     
 
 #for li in div_highlight:
